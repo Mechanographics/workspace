@@ -1,5 +1,5 @@
 
-package demo.sphinx.helloworld;
+package helloworld;
 
 import edu.cmu.sphinx.frontend.util.Microphone;
 import edu.cmu.sphinx.recognizer.Recognizer;
