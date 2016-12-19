@@ -121,13 +121,16 @@ public class RestPosition extends PositionTemplate {
 							Resolve.resolveForces(this);
 						}
 				}
-				
 				else if (td.reln().toString().contains("nmod") && td.gov().toString().equals(govNumMod)){
-					
-					if(isInclination(govNumMod)){
-						inclination_angle = Integer.parseInt(depNumMod.substring(0, depNumMod.indexOf("/")));
-					}
-					
+				 	 
+				 	if(isInclination(govNumMod)){
+				 	inclination_angle = Integer.parseInt(depNumMod.substring(0, depNumMod.indexOf("/")));
+				 	System.out.println("\nAngle of Inclination is: "+inclination_angle);
+				 	 
+				 	//now resolve the forces from the object hashmap and angle of inclination
+				 	Resolve.resolveForces(this);
+				 	}
+				 	 
 				}
 			}
 			

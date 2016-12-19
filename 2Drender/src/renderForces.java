@@ -18,7 +18,7 @@ public class renderForces extends Frame{
     public static LinkedList<Integer> downForces = new LinkedList<>();
     public static LinkedList<Integer> leftForces = new LinkedList<>();
     public static LinkedList<Integer> rightForces = new LinkedList<>();
-    
+    public int inclination_angle = 30;
 	   public static void main(String[] args){
 	      renderForces  awtGraphicsDemo = new renderForces();  
 	      awtGraphicsDemo.setVisible(true);
@@ -41,7 +41,8 @@ public class renderForces extends Frame{
 	   }
 
 	   
-	   @Override
+	   @SuppressWarnings("null")
+	@Override
 	   public void paint(Graphics g) {
 	      g.setColor(Color.GRAY);
 	      
@@ -55,8 +56,24 @@ public class renderForces extends Frame{
 	      int x1 = 200;		int x2 = 200;
 	      int yd1 = 245;	int yd2 = 300;
 	      int yu1 = 175;	int yu2 = 120;
-	      g.fillPolygon(xpoints, ypoints, 4);
+	      int temp_x1[] = null, temp_y1[] = null;
 
+	      
+	      if(inclination_angle == 0){
+	    	  g.fillPolygon(xpoints, ypoints, 4);	    	  
+	    	  x1 = 200;		x2 = 200;
+	    	  yd1 = 245;	yd2 = 300;
+	    	  yu1 = 175;	yu2 = 120;
+	      }
+	      else{
+	    	  
+	    	  for(int i=0; i<4; i++){
+	    		  temp_x1[i] = (int) (xpoints[i] * Math.cos(inclination_angle) - ypoints[i] * Math.sin(inclination_angle));
+	    		  temp_y1[i] = (int) (xpoints[i] * Math.sin(inclination_angle) + ypoints[i] * Math.cos(inclination_angle));
+	    	  }
+	    	  g.fillPolygon(temp_x1,temp_y1,4);
+	      }
+	      
 	      for(int i=0; i<numDown; i++){
 	    	  g.drawLine(x1+(i*10), yd1, x2+(i*10), yd2);
 	      }

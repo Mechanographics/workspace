@@ -33,6 +33,8 @@ public class TextProController {
 	
 	// UI Controls
 	private AutoSpellingTextArea textBox;
+
+//	private renderForces renderForces;
 	
 	public String text;
 	@FXML
@@ -173,7 +175,12 @@ public class TextProController {
 	}
 	
 	@FXML
-	private void handleFleschIndex() {
+	private void handleFBD() {
+
+		renderForces  awtGraphicsDemo = new renderForces();  
+	    awtGraphicsDemo.setVisible(true);
+		
+		
 		/*String text = textBox.getText();
 		double fIndex = 0;
 		

@@ -17,4 +17,6 @@
 <fullyQualifiedTypeName name="java.awt.event.WindowAdapter"/>
 <fullyQualifiedTypeName name="java.awt.event.WindowEvent"/>
 <fullyQualifiedTypeName name="java.util.LinkedList"/>
+<fullyQualifiedTypeName name="classificationOfForces.PositionTemplate"/>
+<fullyQualifiedTypeName name="graphics_rendering.renderForces"/>
 </qualifiedTypeNameHistroy>

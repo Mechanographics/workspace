@@ -42,7 +42,7 @@
     <VBox fx:id="rightBox" maxWidth="-1.0" minWidth="205" prefHeight="582.0" prefWidth="205.0" spacing="55.0" HBox.hgrow="NEVER">
       <children>
         <Button font="$x1" mnemonicParsing="false" onAction="#handleLoadText" prefHeight="21.0" prefWidth="160.0" text="Dependencies" />
-        <Button font="$x1" mnemonicParsing="false" onAction="#handleFleschIndex" prefWidth="160.0" text="View FBD" />
+        <Button font="$x1" mnemonicParsing="false" onAction="#handleFBD" prefWidth="160.0" text="View FBD" />
         <Button mnemonicParsing="false" onAction="#handleMarkovText" prefHeight="25.0" prefWidth="160.0" text="View Equation">
           <font>
             <Font size="13.5" />

@@ -1,6 +1,8 @@
 package application;
 	
 import java.io.IOException;
+
+import graphics_rendering.renderForces;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -118,8 +120,8 @@ public class MainApp extends Application {
 		
 		Scene dialogScene = new Scene(dialogVbox, 600,600);
 		dialogStage.setScene(dialogScene);
-		
 		dialogStage.showAndWait();
+		
     }
     
  /*
@@ -264,12 +266,13 @@ public class MainApp extends Application {
         loadStage.show();
     }
     
-    
     // MAIN
 	public static void main(String[] args) {
 		launch(args);
+		
 	}
 	
+
 	public Stage getStage() {
 		return this.primaryStage;
 	}

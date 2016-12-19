@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<item value="JavaSE-1.8" key="org.eclipse.jdt.ui.last.selected.execution.enviroment"/>
-	<item value="C:\Program Files\stanford-corenlp-full\stanford-corenlp-full-2015-12-09" key="org.eclipse.jdt.ui.lastextjar"/>
+	<item value="C:\Users\SALONI\Downloads" key="org.eclipse.jdt.ui.lastextjar"/>
 	<item value="480,510" key="UserLibraryLoadSaveDialog.size"/>
 	<section name="org.eclipse.ltk.ui.refactoring.settings">
 		<item value="false" key="updateSimilarElements"/>
@@ -48,7 +48,7 @@
 		<item value="true" key="expanded0"/>
 	</section>
 	<section name="ClasspathContainerSelectionPage">
-		<item value="0" key="index"/>
+		<item value="1" key="index"/>
 	</section>
 	<section name="quick_assist_proposal_size">
 	</section>
