@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move 5 elements to &apos;TextEditor/src&apos;&#x0D;&#x0A;- Original project: &apos;MOOCTextEditor&apos;&#x0D;&#x0A;- Destination element: &apos;TextEditor/src&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     classificationOfForces&#x0D;&#x0A;     spelling&#x0D;&#x0A;     textgen&#x0D;&#x0A;     languageProcessing&#x0D;&#x0A;     application&#x0D;&#x0A;- Update references to refactored element" description="Move folders" destination="=TextEditor/src" element1="src/classificationOfForces" element2="src/spelling" element3="src/textgen" element4="src/languageProcessing" element5="src/application" files="0" flags="589830" folders="5" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1481867767739" units="0" version="1.0"/>
+</session>

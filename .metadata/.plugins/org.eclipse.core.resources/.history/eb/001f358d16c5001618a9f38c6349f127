@@ -1,0 +1,46 @@
+import java.awt.*;
+import java.awt.event.*;
+//import java.util.LinkedList;
+
+public class renderForces extends Frame{
+
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8968216540516891218L;
+
+	public renderForces(){
+	      super("Java AWT Examples");
+	      prepareGUI();
+	   }
+
+	   public static void main(String[] args){
+	      renderForces  awtGraphicsDemo = new renderForces();  
+	      awtGraphicsDemo.setVisible(true);
+	   }
+
+	   private void prepareGUI(){
+	      setSize(400,400);
+	      addWindowListener(new WindowAdapter() {
+	         public void windowClosing(WindowEvent windowEvent){
+	            System.exit(0);
+	         }        
+	      }); 
+	   }    
+
+	   @Override
+	   public void paint(Graphics g) {
+	      g.setColor(Color.GRAY);
+	      int xpoints[] = {25, 145, 25, 145, 25};
+	      int ypoints[] = {25, 25, 145, 145, 25};
+
+	      g.drawPolygon(xpoints, ypoints, 4);
+	      String msg = "";
+	      Font font = new Font("Serif", Font.PLAIN, 24);
+	      g.setFont(font);
+	      g.drawString(msg, 50, 150);      
+	   }
+	
+		   
+}

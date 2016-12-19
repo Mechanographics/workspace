@@ -1,0 +1,50 @@
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.geom.*;
+import java.util.LinkedList;
+
+public class renderForces extends Frame{
+
+	
+	public renderForces(){
+	      super("Java AWT Examples");
+	      prepareGUI();
+	   }
+
+	   public static void main(String[] args){
+	      renderForces  awtGraphicsDemo = new renderForces();  
+	      awtGraphicsDemo.setVisible(true);
+	   }
+
+	   private void prepareGUI(){
+	      setSize(400,400);
+	      addWindowListener(new WindowAdapter() {
+	         public void windowClosing(Wi
+	        		 ndowEvent windowEvent){
+	            System.exit(0);
+	         }        
+	      }); 
+	   }    
+
+	   @Override
+	   public void paint(Graphics g) {
+	      g.setColor(Color.GRAY);
+	      Font font = new Font("Serif", Font.PLAIN, 24);
+	      g.setFont(font);
+	      g.drawString("Welcome to TutorialsPoint", 50, 150);      
+	   }
+	
+	
+		      // create a linked list
+		      LinkedList up = new LinkedList();
+		      LinkedList down = new LinkedList();
+		      LinkedList right = new LinkedList();
+		      LinkedList left = new LinkedList();
+		      
+		      // add elements to the left
+		      left.add("10");
+		      left.add("20");
+		      right.add("D");
+		      right.add("E");
+		   
+}

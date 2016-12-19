@@ -1,0 +1,54 @@
+import java.awt.*;
+import java.awt.event.*;
+import java.util.LinkedList;
+//import java.util.LinkedList;
+
+public class downForces extends Frame{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5104216951709522191L;
+
+	public downForces(){
+	      super("Java AWT Examples");
+	      prepareGUI();
+	   }
+
+	   public static void main(String[] args){
+	      downForces  awtGraphicsDemo = new downForces();  
+	      awtGraphicsDemo.setVisible(true);
+	      
+	      LinkedList<Integer> up = new LinkedList<>();
+	      LinkedList<Integer> down = new LinkedList<>();
+	      LinkedList<Integer> left = new LinkedList<>();
+	      LinkedList<Integer> right = new LinkedList<>();
+	   }
+
+	   private void prepareGUI(){
+	      setSize(400,400);
+	      addWindowListener(new WindowAdapter() {
+	         public void windowClosing(WindowEvent windowEvent){
+	            System.exit(0);
+	         }        
+	      }); 
+	   }
+
+	   @Override
+	   public void paint(Graphics g) {
+	      g.setColor(Color.GRAY);
+	      
+	      int numForces = 2;
+	      int xpoints[] = {75, 145, 145, 75};
+	      int ypoints[] = {75, 75, 145, 145};
+	      int x1 = 100;	int y1 = 145;	int x2 = 100;	int y2 = 200;
+	      
+	      g.drawPolygon(xpoints, ypoints, 4);
+	      for(int i=0; i<numForces; i++)
+	      	g.drawLine(x1+(i*10), y1, x2+(i*10), y2);
+	      String msg = "";
+	      Font font = new Font("Serif", Font.PLAIN, 24);
+	      g.setFont(font);
+	      g.drawString(msg, 50, 150);      
+	   }
+}
