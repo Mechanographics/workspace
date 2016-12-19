@@ -2,6 +2,8 @@ package languageProcessing;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import classificationOfForces.PositionTemplate;
 import edu.stanford.nlp.ling.HasWord;
 import edu.stanford.nlp.parser.lexparser.LexicalizedParser;
 import edu.stanford.nlp.process.DocumentPreprocessor;
@@ -18,6 +20,7 @@ public class InitialProcessing {
 	public LinkedList<List<TypedDependency>> typed_dependencies = new LinkedList<>();
 	public String root_word = "0";
 	
+	public PositionTemplate pt;
 	DoExtraction dodo = new DoExtraction();
 	
 	public InitialProcessing(){
@@ -63,11 +66,11 @@ public class InitialProcessing {
 	    		//String depend = tdl.toString();
 	    		System.out.println(tdl);
 	    		typed_dependencies.add(tdl);
-	    		System.out.println();
-	    		this.getExtractiondone();
-      }
+	    		System.out.println(); 		
+      } 	
     }
-	    System.out.println("Typed Dependencies are : "+typed_dependencies);
+	    this.getExtractiondone();
+	    //System.out.println("Typed Dependencies are : "+typed_dependencies);
   }
 	
 	public void getExtractiondone(){

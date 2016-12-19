@@ -8,7 +8,7 @@ import languageProcessing.InitialProcessing;
 public class RestPosition extends PositionTemplate {
 	public RestPosition(InitialProcessing ip){
 		this.ip =ip;
-		do_classification();	
+		do_classification();
 	}
 	
 	public void do_classification(){

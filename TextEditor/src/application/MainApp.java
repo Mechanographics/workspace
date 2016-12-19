@@ -1,4 +1,3 @@
-
 package application;
 	
 import java.io.IOException;
@@ -21,7 +20,7 @@ import javafx.scene.text.Text;
 public class MainApp extends Application {
 	private Stage primaryStage;
 	private BorderPane rootLayout;
-	
+	TextProController controller;
 	
 	// called at start of application
 	@Override
@@ -63,7 +62,7 @@ public class MainApp extends Application {
             rootLayout.setCenter(textProPage);
             
             // Connect controller and main app
-            TextProController controller = loader.getController();
+            controller = loader.getController();
             controller.setMainApp(this);
             
         } catch (IOException e) {
@@ -89,8 +88,6 @@ public class MainApp extends Application {
      */
     public void showLoadFileDialog(InitialProcessing ip) {
     	
-    	TextField word1;
-    	
     	// Load the fxml file and create a new stage for the popup
 		FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("view/DependencyLayout.fxml"));
 		
@@ -102,7 +99,22 @@ public class MainApp extends Application {
 		dialogStage.initModality(Modality.WINDOW_MODAL);
 		dialogStage.initOwner(primaryStage);
 		
-		dialogVbox.getChildren().add(new Text("Dependencies : "+ip.typed_dependencies));
+		dialogVbox.getChildren().add(new Text("THE NUMERCICAL : "+controller.text_from_textbox+"\n\n"+
+				"Object name : "+ip.pt.objectName +" weights "+ip.pt.objectW.toString()+"\n"+
+				"Angle of inclination : "+ip.pt.inclination_angle+"\n"+
+				"Co-efficient of Friction : "+ip.pt.friction_coeff+"\n"+
+				
+				"\n\nThe different forces acting on it are : "+"\n\n"+ 
+				"Upward Force : "+ip.pt.upForce+"\n"+
+				"Downward Force : "+ip.pt.downForce+"\n"+
+				"Left Force : "+ip.pt.leftForce+"\n"+
+				"Right Force : "+ip.pt.rightForce+"\n"+
+				
+				"\n\nJUST INCASE THE DATA IS NOT CORRECT, ENTER THE QUESTION AGAIN\n"+
+				"BUT THIS TIME IN A DIFFRERENT FORM "
+				));
+		/*
+		*/
 		
 		Scene dialogScene = new Scene(dialogVbox, 600,600);
 		dialogStage.setScene(dialogScene);

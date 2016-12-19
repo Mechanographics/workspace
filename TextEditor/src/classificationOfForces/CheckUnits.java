@@ -4,9 +4,8 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class CheckUnits  {
-
-	public CheckUnits(PositionTemplate rp){
-		
+	
+	public static void actuallyCheckUnitsofObject(PositionTemplate rp){
 		for(Iterator<Map.Entry<Double, String>> it = rp.objectW.entrySet().iterator(); it.hasNext(); ) {
 			Map.Entry<Double, String> entry = it.next(); 
 			String s = 	entry.getValue();
@@ -23,12 +22,9 @@ public class CheckUnits  {
 				rp.objectW.put(key/1000000, "kg");
 			}
 			
-			rp.downForce.add(key*9.8);
 		}
-		
 	}
-}
-	
+
 	/*public void isSIUnit (){
 		for(Iterator<Map.Entry<Double, String>> it = objectW.entrySet().iterator(); it.hasNext(); ) {
 			Map.Entry<Double, String> entry = it.next(); 
@@ -43,6 +39,7 @@ public class CheckUnits  {
 		} 				
 					
 	}*/
-			
+		
+}
 
 

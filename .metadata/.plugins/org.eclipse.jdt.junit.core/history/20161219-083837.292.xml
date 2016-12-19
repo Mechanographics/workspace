@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="MyLinkedListTester" project="TextEditor" tests="6" started="6" failures="0" errors="0" ignored="0">
+  <testsuite name="textgen.MyLinkedListTester" time="0.006">
+    <testcase name="testGet" classname="textgen.MyLinkedListTester" time="0.006"/>
+    <testcase name="testSet" classname="textgen.MyLinkedListTester" time="0.0"/>
+    <testcase name="testSize" classname="textgen.MyLinkedListTester" time="0.0"/>
+    <testcase name="testAddAtIndex" classname="textgen.MyLinkedListTester" time="0.0"/>
+    <testcase name="testAddEnd" classname="textgen.MyLinkedListTester" time="0.0"/>
+    <testcase name="testRemove" classname="textgen.MyLinkedListTester" time="0.0"/>
+  </testsuite>
+</testrun>

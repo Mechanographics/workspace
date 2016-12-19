@@ -24,18 +24,26 @@ public class TypeExtraction {
 		LinkedList<String> list = new LinkedList<>();
 		list.add("kept");
 		list.add("rest");
+		list.add("rests");
+		list.add("sits");
+		list.add("acts");
 		list.add("resting");
 		list.add("lying");
 		list.add("suspended");
-		
+		list.add("applied");
+		list.add("acting");
+		list.add("sitting");
+		//can rest on an inclined plane as well		
 		return list;
 	}
 	
 	public LinkedList<String> getFriction(){
 		LinkedList<String> list = new LinkedList<>();
 		list.add("sliding");
+		list.add("slides");
 		list.add("gliding");
-		list.add("friction");
+		list.add("glides");	 list.add("coasting");
+		list.add("friction"); list.add("hauling");
 		list.add("friction-less");
 		
 		return list;
