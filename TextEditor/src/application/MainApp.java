@@ -1,6 +1,8 @@
 package application;
 	
+import java.awt.Graphics;
 import java.io.IOException;
+import java.util.LinkedList;
 
 import graphics_rendering.renderForces;
 import javafx.application.Application;
@@ -9,6 +11,7 @@ import javafx.geometry.Pos;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import languageProcessing.InitialProcessing;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -16,6 +19,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.*;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
@@ -23,7 +27,7 @@ public class MainApp extends Application {
 	private Stage primaryStage;
 	private BorderPane rootLayout;
 	TextProController controller;
-	
+	LinkedList<Double> dF,uF,rF,lF;
 	// called at start of application
 	@Override
 	public void start(Stage primaryStage) {
@@ -113,17 +117,75 @@ public class MainApp extends Application {
 				"Right Force : "+ip.pt.rightForce+"\n"+
 				
 				"\n\nJUST INCASE THE DATA IS NOT CORRECT, ENTER THE QUESTION AGAIN\n"+
-				"BUT THIS TIME IN A DIFFRERENT FORM "
+				"BUT THIS TIME IN A DIFFRERENT FORM " +ip.pt.downForce.size()
 				));
-		/*
-		*/
+
+		dF = ip.pt.downForce;	uF = ip.pt.upForce;
+		rF = ip.pt.rightForce;	lF = ip.pt.leftForce;
 		
-		Scene dialogScene = new Scene(dialogVbox, 600,600);
+		Scene dialogScene = new Scene(dialogVbox, 600,600);		
 		dialogStage.setScene(dialogScene);
 		dialogStage.showAndWait();
 		
     }
     
+	public void showFBD(InitialProcessing ip){
+    	FXMLLoader fbd = new FXMLLoader(MainApp.class.getResource("view/FBDLayout.fxml"));
+//    	VBox fbdVbox = new VBox(200);
+		Stage stage = new Stage();
+		stage.setTitle("Free Body Diagram");
+		stage.initModality(Modality.WINDOW_MODAL);
+    	 Group root = new Group();
+    	    Scene scene = new Scene(root, 500, 500);
+    	    stage.setScene(scene);
+
+    	    Group g = new Group();
+
+    	    Polygon polygon = new Polygon();
+    	    polygon.getPoints().addAll(new Double[]{
+    	        175.0, 175.0,
+    	        175.0, 245.0,
+    	        245.0, 245.0,
+    	        245.0, 175.0  
+    	        });
+    	    
+    	    g.getChildren().add(polygon);
+    	    
+	    	  float x1 = 200,	x2 = 200,  yd1 = 245,	yd2 = 300,  yu1 = 175,	yu2 = 120;
+//		      int numLeft = ip.pt.leftForce.size();
+//		      int numRight = ip.pt.rightForce.size();
+	//	      int numUp = 2;//ip.pt.upForce.size();
+		      int numDown = ip.pt.downForce.size();
+		     // System.out.println(ip.pt.downForce.size());
+		      
+  	      for(int i=0; i<numDown; i++){
+  	    	  	    	  
+  	    	  Line line = new Line();
+  	          line.setStartX(x1+(i*10)*1.0);
+  	          line.setStartY(yd1);
+  	          line.setEndX(x2+(i*10)*1.0);
+  	          line.setEndY(yd2);
+  	          g.getChildren().add(line);
+  	      }
+//  	      for(int i=0; i<numUp; i++){
+//  	    	  g.drawLine(x1+(i*10), yu1, x2+(i*10), yu2);
+  //	      }
+/*  	      for(int i=0; i<numLeft; i++){
+//  		      g.drawLine(yd1, x1+(i*10), yd2, x2+(i*10));
+  	      }
+  	      for(int i=0; i<numRight; i++){
+//  		      g.drawLine(yu1, x1+(i*10), yu2, x2+(i*10));
+  	      }
+    	    
+*/    	    
+    	    
+    	    
+    	    scene.setRoot(g);
+    	    stage.show();				
+
+		
+		
+ }
  /*
     public void showEditDistanceDialog(String selectedText) {
     	try {

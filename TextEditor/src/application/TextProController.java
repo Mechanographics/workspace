@@ -76,6 +76,13 @@ public class TextProController {
 	private void handleLoadText() {
 		//return string??
 		//text = mainApp.showLoadFileDialog();
+		String text = textBox.getText();
+		
+		
+		// check if text input
+				if(text.equals("")) {
+					mainApp.showInputErrorDialog("No text entered.");
+				}
 		
 		//String text = text_input.getText();
 		text_from_textbox = textBox.getText();
@@ -177,35 +184,19 @@ public class TextProController {
 	@FXML
 	private void handleFBD() {
 
-		renderForces  awtGraphicsDemo = new renderForces();  
+/*		renderForces  awtGraphicsDemo = new renderForces();  
 	    awtGraphicsDemo.setVisible(true);
+*/		
 		
-		
-		/*String text = textBox.getText();
+		String text = textBox.getText();
 		double fIndex = 0;
 		
 		// check if text input
-		if(!text.equals("")) {
-			
-			// create Document representation of  current text
-			//document.Document doc = launch.getDocument(text);
-			
-			//fIndex = doc.getFleschScore();
-			
-			//get string with two decimal places for index to
-			//String fString = String.format("%.2f", fIndex);
-			
-			// display string in text field
-			//fleschField.setText(fString);
-			
-		}
-		else {
-			// reset text field
-			fleschField.setText("");
+		if(text.equals("")) {
 			mainApp.showInputErrorDialog("No text entered.");
-			
-		}*/
-		
+		}
+		languageProcessing.InitialProcessing ip = launch.getInitialtext("");
+		mainApp.showFBD(ip);
 	}
 	
 
@@ -244,7 +235,7 @@ public class TextProController {
 
 		
 		// show loading dialog when task is running
-		task.setOnRunning( e -> {
+		task`.setOnRunning( e -> {
 			mainApp.showLoadStage(loadStage, "Training MTG...");
 		});
 		

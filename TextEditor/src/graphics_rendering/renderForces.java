@@ -49,6 +49,7 @@ public class renderForces extends Frame{
 	      int numUp = pt.upForce.size();
 	      int numDown = pt.downForce.size();
 	      
+	      
 	      int xpoints[] = {175, 245, 245, 175};
 	      int ypoints[] = {175, 175, 245, 245};
 	      int x1 = 200;		int x2 = 200;
@@ -56,6 +57,10 @@ public class renderForces extends Frame{
 	      int yu1 = 175;	int yu2 = 120;
 	      g.fillPolygon(xpoints, ypoints, 4);
 
+	      
+	      
+	      
+	      
 	      for(int i=0; i<numDown; i++){
 	    	  g.drawLine(x1+(i*10), yd1, x2+(i*10), yd2);
 	      }
