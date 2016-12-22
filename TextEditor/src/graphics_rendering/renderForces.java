@@ -19,7 +19,7 @@ public class renderForces extends Frame{
 	      prepareGUI();
 	   }
 	
-/*	public static LinkedList<Integer> upForces = new LinkedList<>();
+/*	public static LinkedList<Integer> upForces 	= new LinkedList<>();
     public static LinkedList<Integer> downForces = new LinkedList<>();
     public static LinkedList<Integer> leftForces = new LinkedList<>();
     public static LinkedList<Integer> rightForces = new LinkedList<>();

@@ -18,13 +18,14 @@ public class renderForces extends Frame{
     public static LinkedList<Integer> downForces = new LinkedList<>();
     public static LinkedList<Integer> leftForces = new LinkedList<>();
     public static LinkedList<Integer> rightForces = new LinkedList<>();
-    public int inclination_angle = 30;
+    public int inclination_angle = 0;
 	   public static void main(String[] args){
 	      renderForces  awtGraphicsDemo = new renderForces();  
 	      awtGraphicsDemo.setVisible(true);
 	      
 	      upForces.add(5);
 	      upForces.add(15);
+	      downForces.add(10);
 	      downForces.add(10);
 	      leftForces.add(25);
 	      rightForces.add(20);
@@ -57,38 +58,50 @@ public class renderForces extends Frame{
 	      int yd1 = 245;	int yd2 = 300;
 	      int yu1 = 175;	int yu2 = 120;
 	      int temp_x1[] = null, temp_y1[] = null;
-
-	      
-	      if(inclination_angle == 0){
-	    	  g.fillPolygon(xpoints, ypoints, 4);	    	  
-	    	  x1 = 200;		x2 = 200;
+   	    	  x1 = 200;		x2 = 200;
 	    	  yd1 = 245;	yd2 = 300;
 	    	  yu1 = 175;	yu2 = 120;
-	      }
-	      else{
-	    	  
-	    	  for(int i=0; i<4; i++){
-	    		  temp_x1[i] = (int) (xpoints[i] * Math.cos(inclination_angle) - ypoints[i] * Math.sin(inclination_angle));
-	    		  temp_y1[i] = (int) (xpoints[i] * Math.sin(inclination_angle) + ypoints[i] * Math.cos(inclination_angle));
-	    	  }
-	    	  g.fillPolygon(temp_x1,temp_y1,4);
-	      }
 	      
+	      if(inclination_angle > 0){
+	    	  /*xpoints[0] = 170;    	  xpoints[1] = 230;
+	    	  xpoints[2] = 265;    	  xpoints[3] = 205;
+	    	  ypoints[0] = 175;   	  ypoints[1] = 140;
+	    	  ypoints[2] = 200;   	  ypoints[3] = 235;
+	    	  */
+	    	  for(int i=0; i<4; i++){
+	    		  temp_x1[i] = (int) (xpoints[i] * Math.cos(inclination_angle*Math.PI/180) + ypoints[i] * Math.sin(inclination_angle*Math.PI/180));
+	    		  temp_y1[i] = (int) (-xpoints[i] * Math.sin(inclination_angle*Math.PI/180) + ypoints[i] * Math.cos(inclination_angle*Math.PI/180));
+	    		  
+	    	  }
+//	    	  g.fillPolygon(temp_x1,temp_y1,4);
+	      }
+	      g.drawPolygon(xpoints, ypoints, 4);
+//	      g.drawString("x poin"+xpoints[0]+xpoints[1]+xpoints[2]+xpoints[3], 20, 100);
+//	      g.drawString("y poin"+ypoints[0]+ypoints[1]+ypoints[2]+ypoints[3], 20, 120);
 	      for(int i=0; i<numDown; i++){
 	    	  g.drawLine(x1+(i*10), yd1, x2+(i*10), yd2);
+	    	  g.drawLine(x2+(i*10), yd2, x2+(i*10)-5, yd2-5);
+	    	  g.drawLine(x2+(i*10), yd2, x2+(i*10)+5, yd2-5);
 	      }
 	      for(int i=0; i<numUp; i++){
 	    	  g.drawLine(x1+(i*10), yu1, x2+(i*10), yu2);
+	    	  g.drawLine(x2+(i*10), yu2, x2+(i*10)-5, yu2+5);
+	    	  g.drawLine(x2+(i*10), yu2, x2+(i*10)+5, yu2+5);
 	      }
 	      for(int i=0; i<numLeft; i++){
-		      g.drawLine(yd1, x1+(i*10), yd2, x2+(i*10));
+		      
+		      g.drawLine(yu1, x1+(i*10), yu2, x2+(i*10));
+		      g.drawLine(yu2, x2+(i*10), yu2+5, x2+(i*10)+5);
+	    	  g.drawLine(yu2, x2+(i*10), yu2+5, x2+(i*10)-5);
 	      }
 	      for(int i=0; i<numRight; i++){
-		      g.drawLine(yu1, x1+(i*10), yu2, x2+(i*10));
+	    	  g.drawLine(yd1, x1+(i*10), yd2, x2+(i*10));
+		      g.drawLine(yd2, x2+(i*10), yd2-5, x2+(i*10)-5); // arrow line 1
+	    	  g.drawLine(yd2, x2+(i*10), yd2-5, x2+(i*10)+5); // arrow line 2
 	      }
 	      String msg = "";
 	      Font font = new Font("Serif", Font.PLAIN, 24);
 	      g.setFont(font);
-	      g.drawString(msg, 50, 150);      
+	      g.drawString(msg+xpoints[1], 50, 150);     
 	   }
 }

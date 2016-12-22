@@ -22,8 +22,8 @@ public class RestPosition extends PositionTemplate {
 			//System.out.println("inside Rest position - for loop");
 			for(TypedDependency td : list){
 				System.out.print("td :gov() - "+td.gov());				
-				System.out.print("td :dep() - "+td.dep());
-				System.out.println("td :reln() - "+td.reln());
+				System.out.print("\ttd :dep() - "+td.dep());
+				System.out.println("\ttd :reln() - "+td.reln());
 			
 				if(directionFlag == 0 && !govAmod.equals("gov") && !forceName.equals("")){
 					if(depAmod.contains("right"))
@@ -80,7 +80,7 @@ public class RestPosition extends PositionTemplate {
 					depNumMod = td.dep().toString();
 					continue;
 				}
-				
+				 
 				else if(td.reln().toString().equals("compound")){
 					govCompound = td.gov().toString();
 					depCompound = td.dep().toString();
@@ -88,7 +88,7 @@ public class RestPosition extends PositionTemplate {
 				}
 				
 				else if (td.reln().toString().contains("nmod") && td.dep().toString().equals(govNumMod)){
-					//System.out.println("For every nmod : ........ "+td.toString());
+					System.out.println("For every nmod : ........ "+td.toString());
 						if(td.gov().toString().contains(objectName)){
 								current_direction = 1;	
 								objectW.put(Double.parseDouble(depNumMod.substring(0,depNumMod.indexOf("/"))), govNumMod.substring(0, govNumMod.indexOf("/")));
@@ -98,7 +98,7 @@ public class RestPosition extends PositionTemplate {
 						
 						else if(td.gov().toString().contains(forceName)){
 							if(govAmod.equals("gov")){
-	//							System.out.println("gov " +govAmod);
+							System.out.println("gov " +govAmod);
 								current_direction = 1;	
 								CheckUnits.actuallyCheckUnitsofObject((PositionTemplate)this);
 							}
@@ -111,7 +111,7 @@ public class RestPosition extends PositionTemplate {
 						}
 						
 						else if(isInclination(govNumMod) && inclination_flag==1){
-							//System.out.println("Angle of Inclination is: "+depNumMod);
+							System.out.println("Angle of Inclination is: "+depNumMod);
 							String s[] = depNumMod.split("/");
 							
 							inclination_angle = Integer.parseInt(s[0]);

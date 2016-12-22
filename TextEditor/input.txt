@@ -1,1 +1,1 @@
-A crate of mass 10 kg is sitting on an incline that makes an angle 30  degrees with the horizontal
+A book of mass 10 g rests on a table top
