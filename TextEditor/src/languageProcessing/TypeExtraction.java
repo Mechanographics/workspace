@@ -1,5 +1,4 @@
 package languageProcessing;
-
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -22,38 +21,28 @@ public class TypeExtraction {
 	
 	public LinkedList<String> getResting(){
 		LinkedList<String> list = new LinkedList<>();
-		list.add("kept");
-		list.add("rest");
-		list.add("rests");
-		list.add("sits");
-		list.add("acts");
-		list.add("resting");
-		list.add("lying");
-		list.add("suspended");
-		list.add("applied");
-		list.add("acting");
-		list.add("sitting");
-		//can rest on an inclined plane as well		
+		list.add("kept"); list.add("rest"); list.add("rests");
+		list.add("sits"); list.add("acts"); list.add("resting");
+		list.add("lying"); list.add("suspended"); list.add("applied");
+		list.add("acting"); list.add("sitting");
+		//can rest on an inclined plane as well, frictionless 	
 		return list;
 	}
 	
 	public LinkedList<String> getFriction(){
 		LinkedList<String> list = new LinkedList<>();
 		list.add("sliding");
-		list.add("slides");
-		list.add("gliding");
+		list.add("slides");  list.add("gliding");
 		list.add("glides");	 list.add("coasting");
 		list.add("friction"); list.add("hauling");
 		list.add("friction-less");
 		
 		return list;
 	}
-	
 	public LinkedList<String> getFreeFalling(){
 		LinkedList<String> list = new LinkedList<>();
 		list.add("free-falling");
-		//list.add("falling");
-		
+		//list.add("falling");		
 		return list;
 	}
 }

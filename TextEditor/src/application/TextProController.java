@@ -33,8 +33,6 @@ public class TextProController {
 	
 	// UI Controls
 	private AutoSpellingTextArea textBox;
-
-//	private renderForces renderForces;
 	
 	public String text;
 	@FXML
@@ -76,18 +74,11 @@ public class TextProController {
 	private void handleLoadText() {
 		//return string??
 		//text = mainApp.showLoadFileDialog();
-		String text = textBox.getText();
-		
-		
-		// check if text input
-				if(text.equals("")) {
-					mainApp.showInputErrorDialog("No text entered.");
-				}
 		
 		//String text = text_input.getText();
 		text_from_textbox = textBox.getText();
 		System.out.println(text_from_textbox);
-		WriteIntoFile wif = new WriteIntoFile(textfile, text_from_textbox);
+		WriteIntoFile wif = new WriteIntoFile(textfile, text_from_textbox.toLowerCase());
 		languageProcessing.InitialProcessing ip = launch.getInitialtext(textfile);
 
 		try {
@@ -184,22 +175,22 @@ public class TextProController {
 	@FXML
 	private void handleFBD() {
 
-/*		renderForces  awtGraphicsDemo = new renderForces();  
-	    awtGraphicsDemo.setVisible(true);
-*/		
-		
-		String text = textBox.getText();
-		double fIndex = 0;
-		
-		// check if text input
-		if(text.equals("")) {
-			mainApp.showInputErrorDialog("No text entered.");
-		}
-		languageProcessing.InitialProcessing ip = launch.getInitialtext("");
-		mainApp.showFBD(ip);
-	}
-	
+		text_from_textbox = textBox.getText();
+		System.out.println(text_from_textbox);
+		WriteIntoFile wif = new WriteIntoFile(textfile, text_from_textbox.toLowerCase());
+		languageProcessing.InitialProcessing ip = launch.getInitialtext(textfile);
 
+		try {
+			wif.makeAFile();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		ip.demoDP(ip.lp, textfile);
+		
+		mainApp.showFBD(ip);
+
+	}
 	
 	@FXML
 	private void handleEditDistance() {
@@ -211,49 +202,7 @@ public class TextProController {
 	@FXML
 	private void handleMarkovText() {
 		// get MTG object
-		/*textgen.MarkovTextGenerator mtg = launch.getMTG();
-		
-		Task<textgen.MarkovTextGenerator> task = new Task<textgen.MarkovTextGenerator>() {
-	        @Override
-	        public textgen.MarkovTextGenerator call() {
-	            // process long-running computation, data retrieval, etc...
-
-	            mtg.retrain(textBox.getText());
-	            return mtg;
-	        }
-		};
-		
-		// stage for load dialog
-		final Stage loadStage = new Stage();
-		
-		// consume close request until task is finished
-		loadStage.setOnCloseRequest( e -> {
-			if(!task.isDone()) {
-				e.consume();
-			}
-		});
-
-		
-		// show loading dialog when task is running
-		task`.setOnRunning( e -> {
-			mainApp.showLoadStage(loadStage, "Training MTG...");
-		});
-		
-		// MTG trained, close loading dialog, show MTG dialog
-	    task.setOnSucceeded(e -> {
-	    	loadStage.close();
-	        textgen.MarkovTextGenerator result = task.getValue();
-	        mainApp.showMarkovDialog(result);
-	    });
-	    
-	   Thread thread  = new Thread(task);
-	   thread.start();
-	  
-		
-		*/
 	}
-	
-	
 	
 	@FXML
 	private void handleAutoComplete() {

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.TreeSet;
 
+import edu.stanford.nlp.trees.TypedDependency;
 import languageProcessing.InitialProcessing;
 
 public class PositionTemplate {
@@ -12,8 +13,12 @@ public class PositionTemplate {
 	public HashMap<Double,String> objectW = new HashMap<Double,String>();
 	public InitialProcessing ip;
 	
-	public int inclination_angle = 0;
+	public int inclination_angle = 0; //angle of inclination
 	public int friction_coeff = 0;
+	
+	public int inclined_object =0;
+	public int inclined_force_angle = 0;
+	public int inclined_force_direction = 0;
 	
 	public LinkedList<Double> upForce = new LinkedList<>();
 	public LinkedList<Double> downForce = new LinkedList<>();
@@ -24,11 +29,17 @@ public class PositionTemplate {
 	int current_direction;
 	// 1 - downward, 2 - upward, 3- left, 4 -right 
 	
+	public void print_dependency(TypedDependency td){
+		System.out.print("td :gov() - "+td.gov());				
+		System.out.print("td :dep() - "+td.dep());
+		System.out.println("td :reln() - "+td.reln());
+	}
+	
 	public void assignValuesToObject(){
 		
 			System.out.println("\n\nObject is " +objectName + " and it weighs " +objectW.toString());
 			System.out.println("Downward forces: "+downForce);
-			System.out.println("UP forces: "+upForce);
+			System.out.println("Up forces: "+upForce);
 			System.out.println("Left forces: "+leftForce);
 			System.out.println("Right forces: "+rightForce);
 	}
@@ -67,10 +78,22 @@ public class PositionTemplate {
 				break;
 		}
 	}
+	public int identifyDirection(String depAmod){
+		if(depAmod.contains("right"))
+			current_direction = 4;
+		else if (depAmod.contains("left"))
+			current_direction = 3;
+		else if (depAmod.contains("up"))
+			current_direction = 2;
+		else if(depAmod.contains("down"))
+			current_direction = 1;
+		return 1;
+
+	}
 	public boolean isInclination(String unit){
 		
 		unit = unit.substring(0, unit.indexOf("/")).toLowerCase();
-		if(unit.equals("degrees")|| unit.equals("degree"))
+		if(unit.contains("degree"))
 			return true;
 		else 
 			return false;
@@ -82,17 +105,17 @@ public class PositionTemplate {
 	public boolean dependency_for_inclination(String relation){
 		TreeSet<String> incline =  new TreeSet<>();
 		incline.add("amod"); incline.add("acl"); incline.add("case"); incline.add("compound"); incline.add("acl:relcl");
-		if(incline.contains(relation))
+		
+		if(incline.contains(relation)){
 			return true;
+		}
 		else
 			return false;
 	}
 	
 	public boolean hasInclination(String word){
 	
-		TreeSet<String> incline =  new TreeSet<>();
-		incline.add("inclined"); incline.add("inclination"); incline.add("incline"); incline.add("elevation"); incline.add("elevates"); incline.add("elevated");
-		if(incline.contains(word))
+		if(word.contains("inclin")|| word.contains("elevat"))
 			return true;
 		else
 			return false;

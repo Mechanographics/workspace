@@ -72,10 +72,8 @@ public class InitialProcessing {
 	    this.getExtractiondone();
 	    //System.out.println("Typed Dependencies are : "+typed_dependencies);
   }
-	
-	public void getExtractiondone(){
 
+	public void getExtractiondone(){
 		dodo.extraction_based_classification(this);
-	}
-	
+	}	
 }

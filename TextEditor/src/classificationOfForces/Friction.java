@@ -61,7 +61,7 @@ public void do_classification(){
 							System.out.println("Angle of Inclination is: "+inclination_angle);
 							
 							//now resolve the forces from the object hashmap and angle of inclination
-							Resolve.resolveForces(this);
+							Resolve.resolveForce(this);
 						}
 				}
 				

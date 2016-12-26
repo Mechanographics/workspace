@@ -1,1 +1,1 @@
-A ball is resting on a table with 10 N force acting on it.
+a ball is resting on an inclined plane at an angle of 15 degrees.
