@@ -17,6 +17,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Arc;
+import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Font;
@@ -152,12 +154,22 @@ public class MainApp extends Application {
     	        235.0, 175.0  
     	        });
     	    
-    	    Line base = new Line();
-    	    base.setStartX(50);	base.setStartY(235);
-    	    base.setEndX(400);  base.setEndY(235);
-    	    g.getChildren().add(base);
+    	    Line baseh = new Line();
+    	    baseh.setStartX(50);	baseh.setStartY(235);
+    	    baseh.setEndX(400);  	baseh.setEndY(235);
+    	    g.getChildren().add(baseh);
 
-    	    Line mg = new Line();
+    	    Line bbase = new Line();
+    	    bbase.setStartX(400);	bbase.setStartY(235);
+    	    bbase.setEndX(400 - 350 * Math.cos(ip.pt.inclination_angle*Math.PI/180));
+    	    bbase.setEndY(235 + 350 * Math.sin(ip.pt.inclination_angle*Math.PI/180));
+    	    g.setRotate(ip.pt.inclination_angle*1.0);
+    	    g.getChildren().add(bbase);
+    	    
+    	    Arc a1 = new Arc(400, 235, 24,24, 180, ip.pt.inclination_angle);
+    	    a1.setStroke(Color.BLACK);
+    	    a1.setFill(null);
+    	    g.getChildren().add(a1);
     	    
     	    Line normal = new Line();
 	          normal.setStrokeWidth(2.5);
@@ -204,23 +216,32 @@ public class MainApp extends Application {
 	    	  arr.setEndX(x1+divd*(i+1)+5); arr.setEndY(yd2-5);
 	    	  g.getChildren().add(arl);     g.getChildren().add(arr);
 	    	  
+	    	  Text td = new Text(x1+divd*(i+1)+5, yd2+5, ""+ip.pt.downForce);
+	    	  td.setFont(new Font(15));
+	    	  g.getChildren().add(td);
 	    	  
 	    	  float endX = (float) (x1 + divd*(i+1) + 50 * Math.sin(ip.pt.inclination_angle*Math.PI/180));
 	    	  float endY = (float) (yd1 + 50 * Math.cos(ip.pt.inclination_angle*Math.PI/180));
+	    	  
+	    	  Line mg = new Line();
+	    	  Text t = new Text(endX+5, endY+5, "mg");
+	    	  t.setFont(new Font(15));
+	    	  g.getChildren().add(t);
 	    	  
   	          mg.setStartX(x1+divd*(i+1));
   	          mg.setStartY(yd1);
   	          mg.setEndX(endX);
   	          mg.setEndY(endY);
-//  	          mg.setRotate(-1*ip.pt.inclination_angle);
   	          mg.setStroke(Color.CYAN);
   	          g.getChildren().add(mg);
   	          Line mgarr = new Line();  	          Line mgarl = new Line();
+  	          
   	          mgarr.setStartX(endX);	mgarr.setStartY(endY);
   	          mgarr.setEndX(endX+3);	mgarr.setEndY(endY-3);
   	          mgarl.setStartX(endX);	mgarl.setStartY(endY);
 	          mgarl.setEndX(endX-3);	mgarl.setEndY(endY-3);
 	          mgarr.setStroke(Color.CYAN);	mgarl.setStroke(Color.CYAN);
+	          
 	          g.getChildren().add(mgarr);
 	          g.getChildren().add(mgarl);
   	      }
@@ -233,6 +254,10 @@ public class MainApp extends Application {
   	          line.setEndY(yu2);
   	          g.getChildren().add(line);
 
+	    	  Text tu = new Text(x1+divu*(i+1)+5, yu2+5, ""+ip.pt.upForce);
+	    	  tu.setFont(new Font(15));
+	    	  g.getChildren().add(tu);
+  	          
   	          Line arr = new Line();	Line arl = new Line();
 	    	  arl.setStartX(x1+divu*(i+1)); arl.setStartY(yu2);
 	    	  arl.setEndX(x1+divu*(i+1)-5); arl.setEndY(yu2+5);
@@ -250,6 +275,10 @@ public class MainApp extends Application {
 	          line.setEndX(yu2);
 	          g.getChildren().add(line);
 
+	    	  Text tl = new Text(yu2+5, x1+divl*(i+1)+5, ""+ip.pt.leftForce);
+	    	  tl.setFont(new Font(15));
+	    	  g.getChildren().add(tl);
+	    	  
   	          Line ardr = new Line();	Line ardl = new Line();
 	    	  ardl.setStartY(x1+divl*(i+1)); ardl.setStartX(yu2);
 	    	  ardl.setEndY(x1+divl*(i+1)+5); ardl.setEndX(yu2+5);
@@ -266,6 +295,10 @@ public class MainApp extends Application {
 	          line.setEndX(yd2);
 	          g.getChildren().add(line);
 	          
+	          Text td = new Text(yd2+5, x1+divr*(i+1)+5, ""+ip.pt.rightForce);
+	          td.setFont(new Font(15));
+	    	  g.getChildren().add(td);
+	    	  
   	          Line ardr = new Line();	Line ardl = new Line();
 	    	  ardl.setStartY(x1+divr*(i+1)); ardl.setStartX(yd2);	    			  
 	    	  ardl.setEndY(x1+divr*(i+1)-5); ardl.setEndX(yd2-5);
@@ -275,13 +308,6 @@ public class MainApp extends Application {
   	     }
       	    if(ip.pt.inclination_angle!=0){
       	    	g.setRotate(ip.pt.inclination_angle*1.0);	// Full group rotate hotay.
-      	    	/*
-  	          mg.setStartX(x1+divd);
-  	          mg.setStrokeWidth(5.0);
-  	          mg.setStartY(yd1);
-  	          mg.setEndX(x1+divd);
-  	          mg.setEndY(yd2);
-  	          g2.getChildren().add(mg);*/
       	    }
       	    
     	    scene.setRoot(g);
@@ -312,5 +338,4 @@ public class MainApp extends Application {
 	public Stage getStage() {
 		return this.primaryStage;
 	}
-	
 }

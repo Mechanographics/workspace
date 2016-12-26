@@ -1,0 +1,322 @@
+package application;
+	
+import java.io.IOException;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import languageProcessing.InitialProcessing;
+import languageProcessing.TypeExtraction;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Arc;
+import javafx.scene.shape.ArcType;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Polygon;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+
+public class MainApp extends Application {
+	private Stage primaryStage;
+	private BorderPane rootLayout;
+	TextProController controller;
+	
+	// called at start of application
+	@Override
+	public void start(Stage primaryStage) {
+		
+		this.primaryStage = primaryStage;
+		
+		this.primaryStage.setTitle("TextProApp");
+		
+		try {
+			// Load root layout from fxml
+			FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("view/RootLayout.fxml"));
+			rootLayout = (BorderPane) loader.load();
+            Scene scene = new Scene(rootLayout);
+            primaryStage.setScene(scene);
+            
+            // min height and width calculated from components in TextAppLayout
+            primaryStage.setMinHeight(430);
+            primaryStage.setMinWidth(334);
+            primaryStage.show();
+            
+          
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		showTextProApp();
+	}
+	
+	/**
+     * Shows the main TextApplication scene
+     */
+    public void showTextProApp() {
+        try {
+            // Load the fxml file and set into the center of the main layout
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("view/TextAppLayout.fxml"));
+            
+            HBox textProPage = (HBox) loader.load();
+            rootLayout.setCenter(textProPage);
+            
+            // Connect controller and main app
+            controller = loader.getController();
+            controller.setMainApp(this);
+            
+        } catch (IOException e) {
+            // Exception gets thrown if the fxml file could not be loaded
+            e.printStackTrace();
+        }
+    }
+    
+    public void showInputErrorDialog(String inErr) {
+    	Alert alert = new Alert(AlertType.ERROR);
+		alert.setTitle("Error");
+		alert.setHeaderText("Input Error");
+		alert.setContentText(inErr);
+
+		alert.showAndWait();
+    }
+    
+    /**
+     * Displays dialog that allows user to select local text file to display in TextArea
+     * 
+     * @param ta - reference to TextArea to display loaded text file
+     * 
+     */
+    
+    public String print_data(InitialProcessing ip){
+    	return "THE NUMERCICAL : "+controller.text_from_textbox+"\n\n"+
+				"Object name : "+ip.pt.objectName +" weights "+ip.pt.objectW.toString()+"\n"+
+				"Angle of inclination : "+ip.pt.inclination_angle+"\n"+
+				"Co-efficient of Friction : "+ip.pt.friction_coeff+"\n"+
+				
+				"\n\nThe different forces acting on it are : "+"\n\n"+ 
+				"Upward Force : "+ip.pt.upForce+"\n"+
+				"Downward Force : "+ip.pt.downForce+"\n"+
+				"Left Force : "+ip.pt.leftForce+"\n"+
+				"Right Force : "+ip.pt.rightForce+"\n"+
+				
+				"\n\nJUST INCASE THE DATA IS NOT CORRECT, ENTER THE QUESTION AGAIN\n"+
+				"BUT THIS TIME IN A DIFFRERENT FORM ";
+    }
+    
+    
+    public void showLoadFileDialog(InitialProcessing ip) {
+    	
+    	// Load the fxml file and create a new stage for the popup
+		FXMLLoader loader = new FXMLLoader(MainApp.class.getResource("view/DependencyLayout.fxml"));
+		
+		VBox dialogVbox = new VBox(200);
+		
+		
+		Stage dialogStage = new Stage();
+		dialogStage.setTitle("Dependencies");
+		dialogStage.initModality(Modality.WINDOW_MODAL);
+		dialogStage.initOwner(primaryStage);
+		
+		dialogVbox.getChildren().add(new Text( print_data(ip)));
+		/*
+		*/
+		
+		Scene dialogScene = new Scene(dialogVbox, 600,600);
+		dialogStage.setScene(dialogScene);
+		
+		dialogStage.showAndWait();
+    }
+    
+    public void showFBD(InitialProcessing ip){
+    	FXMLLoader fbd = new FXMLLoader(MainApp.class.getResource("view/FBDLayout.fxml"));
+//    	VBox fbdVbox = new VBox(200);
+		Stage stage = new Stage();
+		stage.setTitle("Free Body Diagram");
+		stage.initModality(Modality.WINDOW_MODAL);
+    	 Group root = new Group();
+    	    Scene scene = new Scene(root, 500, 500);
+    	    stage.setScene(scene);
+
+    	    
+    	    Group g = new Group();
+    	    Polygon polygon = new Polygon();
+    	    polygon.getPoints().addAll(new Double[]{
+    	        175.0, 175.0,
+    	        175.0, 235.0,
+    	        235.0, 235.0,
+    	        235.0, 175.0  
+    	        });
+    	    
+    	    Line baseh = new Line();
+    	    baseh.setStartX(50);	baseh.setStartY(235);
+    	    baseh.setEndX(400);  	baseh.setEndY(235);
+    	    g.getChildren().add(baseh);
+
+    	    Line bbase = new Line();
+    	    bbase.setStartX(400);	bbase.setStartY(235);
+    	    bbase.setEndX(400 - 350 * Math.cos(ip.pt.inclination_angle*Math.PI/180));
+    	    bbase.setEndY(235 + 350 * Math.sin(ip.pt.inclination_angle*Math.PI/180));
+    	    g.setRotate(ip.pt.inclination_angle*1.0);
+    	    g.getChildren().add(bbase);
+    	    
+    	    Arc a1 = new Arc(400, 235, 24, 24, 180-ip.pt.inclination_angle*Math.PI/180, ip.pt.inclination_angle*Math.PI);
+    	    a1.setType(ArcType.OPEN);
+    	    a1.setStroke(Color.BLACK);
+    	    g.getChildren().add(a1);
+    	    
+    	    Line mg = new Line();
+    	    
+    	    Line normal = new Line();
+	          normal.setStrokeWidth(2.5);
+	          normal.setStroke(Color.RED);
+    	      normal.setStartX(210);
+	          normal.setStartY(175);
+	          normal.setEndX(210);
+	          normal.setEndY(120);
+//	          g.getChildren().add(normal);
+
+	          Line arrn = new Line();	Line arln = new Line(); //arrowleftnormal --- arrowrightnormal
+	          arln.setStrokeWidth(2.5);	arrn.setStrokeWidth(2.5);
+	          arln.setStroke(Color.RED);arrn.setStroke(Color.RED);
+	    	  arln.setStartX(210); arln.setStartY(120);
+	    	  arln.setEndX(205); arln.setEndY(125);
+	    	  arrn.setStartX(210); arrn.setStartY(120);
+	    	  arrn.setEndX(215); arrn.setEndY(125);
+	    	  g.getChildren().add(arln);     g.getChildren().add(arrn);
+
+	    	  g.getChildren().add(polygon);
+
+	    	  float x2 = 235,	x1 = 175,  yd1 = 235,	yd2 = 285,  yu1 = 175,	yu2 = 125;
+		      
+//		     System.out.println(ip.pt.rightForce.size());
+  	    	  float divd = (x2-x1)/(ip.pt.downForce.size()+1);
+  	    	  float divu = (x2-x1)/(ip.pt.upForce.size()+1);
+  	    	  float divl = (x2-x1)/(ip.pt.leftForce.size()+1);
+  	    	  float divr = (x2-x1)/(ip.pt.rightForce.size()+1);
+  	    	  Group g2 = new Group();
+//DOWN
+  	      for(int i=0; i<ip.pt.downForce.size(); i++){
+  	    	  Line line = new Line();
+
+  	          line.setStartX(x1+divd*(i+1));
+  	          line.setStartY(yd1);
+  	          line.setEndX(x1+divd*(i+1));
+  	          line.setEndY(yd2);
+  	          g.getChildren().add(line);
+  	    	  
+  	          Line arr = new Line();	Line arl = new Line();
+	    	  arl.setStartX(x1+divd*(i+1)); arl.setStartY(yd2);
+	    	  arl.setEndX(x1+divd*(i+1)-5); arl.setEndY(yd2-5);
+	    	  arr.setStartX(x1+divd*(i+1)); arr.setStartY(yd2);
+	    	  arr.setEndX(x1+divd*(i+1)+5); arr.setEndY(yd2-5);
+	    	  g.getChildren().add(arl);     g.getChildren().add(arr);
+	    	  
+	    	  float endX = (float) (x1 + divd*(i+1) + 50 * Math.sin(ip.pt.inclination_angle*Math.PI/180));
+	    	  float endY = (float) (yd1 + 50 * Math.cos(ip.pt.inclination_angle*Math.PI/180));
+	    	  
+  	          mg.setStartX(x1+divd*(i+1));
+  	          mg.setStartY(yd1);
+  	          mg.setEndX(endX);
+  	          mg.setEndY(endY);
+  	          mg.setStroke(Color.CYAN);
+  	          g.getChildren().add(mg);
+  	          Line mgarr = new Line();  	          Line mgarl = new Line();
+  	          
+  	          mgarr.setStartX(endX);	mgarr.setStartY(endY);
+  	          mgarr.setEndX(endX+3);	mgarr.setEndY(endY-3);
+  	          mgarl.setStartX(endX);	mgarl.setStartY(endY);
+	          mgarl.setEndX(endX-3);	mgarl.setEndY(endY-3);
+	          mgarr.setStroke(Color.CYAN);	mgarl.setStroke(Color.CYAN);
+	          
+	          g.getChildren().add(mgarr);
+	          g.getChildren().add(mgarl);
+  	      }
+  	      //UP
+  	      for(int i=0; i<ip.pt.upForce.size(); i++){
+  	    	  Line line = new Line();
+  	          line.setStartX(x1+divu*(i+1));
+  	          line.setStartY(yu1);
+  	          line.setEndX(x1+divu*(i+1));
+  	          line.setEndY(yu2);
+  	          g.getChildren().add(line);
+
+  	          Line arr = new Line();	Line arl = new Line();
+	    	  arl.setStartX(x1+divu*(i+1)); arl.setStartY(yu2);
+	    	  arl.setEndX(x1+divu*(i+1)-5); arl.setEndY(yu2+5);
+	    	  arr.setStartX(x1+divu*(i+1)); arr.setStartY(yu2);
+	    	  arr.setEndX(x1+divu*(i+1)+5); arr.setEndY(yu2+5);
+	    	  g.getChildren().add(arl);     g.getChildren().add(arr);
+  	      }
+  	      
+  	      //LEFT
+  	      for(int i=0; i<ip.pt.leftForce.size(); i++){
+  	    	  Line line = new Line();
+	          line.setStartY(x1+divl*(i+1));
+	          line.setStartX(yu1);
+	          line.setEndY(x1+divl*(i+1));
+	          line.setEndX(yu2);
+	          g.getChildren().add(line);
+
+  	          Line ardr = new Line();	Line ardl = new Line();
+	    	  ardl.setStartY(x1+divl*(i+1)); ardl.setStartX(yu2);
+	    	  ardl.setEndY(x1+divl*(i+1)+5); ardl.setEndX(yu2+5);
+	    	  ardr.setStartY(x1+divl*(i+1)); ardr.setStartX(yu2);
+	    	  ardr.setEndY(x1+divl*(i+1)-5); ardr.setEndX(yu2+5);
+	    	  g.getChildren().add(ardl);     g.getChildren().add(ardr);
+  	      }
+  	      //RIGHT
+  	      for(int i=0; i<ip.pt.rightForce.size(); i++){
+  	    	  Line line = new Line();
+	          line.setStartY(x1+divr*(i+1));
+	          line.setStartX(yd1);
+	          line.setEndY(x1+divr*(i+1));
+	          line.setEndX(yd2);
+	          g.getChildren().add(line);
+	          
+  	          Line ardr = new Line();	Line ardl = new Line();
+	    	  ardl.setStartY(x1+divr*(i+1)); ardl.setStartX(yd2);	    			  
+	    	  ardl.setEndY(x1+divr*(i+1)-5); ardl.setEndX(yd2-5);
+	    	  ardr.setStartY(x1+divr*(i+1)); ardr.setStartX(yd2);
+	    	  ardr.setEndY(x1+divr*(i+1)+5); ardr.setEndX(yd2-5);
+	    	  g.getChildren().add(ardl);     g.getChildren().add(ardr);	    	  
+  	     }
+      	    if(ip.pt.inclination_angle!=0){
+      	    	g.setRotate(ip.pt.inclination_angle*1.0);	// Full group rotate hotay.
+      	    }
+      	    
+    	    scene.setRoot(g);
+    	    stage.show();    	
+    }
+
+    public void showLoadStage(Stage loadStage, String text) {
+    	loadStage.initModality(Modality.APPLICATION_MODAL);
+    	loadStage.initOwner(primaryStage);
+        VBox loadVBox = new VBox(20);
+        loadVBox.setAlignment(Pos.CENTER);
+        Text tNode = new Text(text);
+        tNode.setFont(new Font(16));
+        loadVBox.getChildren().add(new HBox());
+        loadVBox.getChildren().add(tNode);
+        loadVBox.getChildren().add(new HBox());
+        Scene loadScene = new Scene(loadVBox, 300, 200);
+        loadStage.setScene(loadScene);
+        loadStage.show();
+    }
+    
+    
+    // MAIN
+	public static void main(String[] args) {
+		launch(args);
+	}
+	
+	public Stage getStage() {
+		return this.primaryStage;
+	}
+}

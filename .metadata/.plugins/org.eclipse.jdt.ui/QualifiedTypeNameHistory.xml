@@ -25,4 +25,8 @@
 <fullyQualifiedTypeName name="javafx.scene.shape.LineBuilder"/>
 <fullyQualifiedTypeName name="javafx.scene.paint.Color"/>
 <fullyQualifiedTypeName name="java.util.LinkedList"/>
+<fullyQualifiedTypeName name="edu.stanford.nlp.util.logging.Color"/>
+<fullyQualifiedTypeName name="javafx.scene.shape.Arc"/>
+<fullyQualifiedTypeName name="javafx.scene.shape.ArcType"/>
+<fullyQualifiedTypeName name="javafx.scene.shape.ArcTo"/>
 </qualifiedTypeNameHistroy>
